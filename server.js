@@ -2,21 +2,24 @@ const express = require("express");
 const app = require("./app");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const port = 3001;
-const host = "127.0.0.1";
-const uri =
-  "mongodb+srv://ravindujayasingha:zLjPIbtE05Ng8KXb@cluster001.pynbzkt.mongodb.net/?retryWrites=true&w=majority";
 
-//using middlewares
+require('dotenv').config();
+
+// Environment variables
+const port = process.env.PORT;
+const host = process.env.HOST;
+const uri = process.env.MONGODB_URI;
+
+// using middlewares
 app.use(cors());
 app.use(express.json());
 
-//server configurations
+// server configurations
 const server = app.listen(port, host, () => {
   console.log(`Server is running on ${server.address().port}`);
 });
 
-//db connection
+// db connection
 const connect = async () => {
   try {
     await mongoose.connect(uri);
@@ -27,5 +30,5 @@ const connect = async () => {
   }
 };
 
-//calling the connect method
+// calling the connect method
 connect();
